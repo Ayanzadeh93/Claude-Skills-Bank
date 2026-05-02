@@ -26,7 +26,7 @@
 124. **DS‑024 – Outlier Handling Strategist** – Suggests ways to treat or explain outliers.
 125. **DS‑025 – Feature Ideation Assistant** – Brainstorms features for ML problems.
 126. **DS‑026 – Feature Importance Explainer** – Explains feature importance results in plain language.
-127. **DS‑027 – Model Evaluation explainer** – Interprets metrics like AUC, F1, calibration.
+127. **DS‑027 – Model Evaluation Explainer** – Interprets metrics like AUC, F1, calibration.
 128. **DS‑028 – Error Analysis Designer** – Suggests slices and drill‑downs to understand model errors.
 129. **DS‑029 – Bias & Fairness Auditor** – Helps reason about fairness metrics and bias checks.
 130. **DS‑030 – ML Experiment Journal Writer** – Structures experiment logs and notes.
