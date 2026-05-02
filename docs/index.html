@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Skills Bank — 500 Reusable Skills for AI Coding Agents</title>
+  <meta name="description" content="500 curated AI skills for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider & Cline. Reusable roles, behaviors, and prompt templates for AI coding agents.">
+  <meta name="keywords" content="AI skills, Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider, Cline, prompt engineering, AI agents, LLM, coding assistant, developer tools, prompt templates">
+  <meta name="author" content="Ayanzadeh93">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ayanzadeh93.github.io/Claude-Skills-Bank/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Skills Bank — 500 Skills for AI Coding Agents">
+  <meta property="og:description" content="500 curated AI skills for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider & Cline. Plug-and-play roles, behaviors, and prompt templates.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ayanzadeh93.github.io/Claude-Skills-Bank/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Ayanzadeh93/Claude-Skills-Bank/main/assets/social-preview.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Skills Bank — 500 Skills for AI Coding Agents">
+  <meta name="twitter:description" content="500 curated AI skills for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider & Cline.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/Ayanzadeh93/Claude-Skills-Bank/main/assets/social-preview.png">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "AI Skills Bank",
+    "description": "500 reusable AI skills for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider & Cline",
+    "url": "https://github.com/Ayanzadeh93/Claude-Skills-Bank",
+    "codeRepository": "https://github.com/Ayanzadeh93/Claude-Skills-Bank",
+    "programmingLanguage": "Markdown",
+    "license": "https://opensource.org/licenses/MIT",
+    "keywords": ["AI skills","prompt engineering","Claude Code","Codex CLI","Gemini CLI","Kimi CLI","Aider","Cline","AI agents","LLM"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a1a;
+      --surface: #12122a;
+      --surface-2: #1a1a3e;
+      --border: rgba(255,255,255,0.08);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent-1: #667eea;
+      --accent-2: #764ba2;
+      --accent-3: #f093fb;
+      --glow: rgba(102,126,234,0.3);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(102,126,234,0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(240,147,251,0.1), transparent);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 100px 0 60px;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: rgba(102,126,234,0.15);
+      border: 1px solid rgba(102,126,234,0.3);
+      color: var(--accent-1);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 0%, var(--accent-1) 50%, var(--accent-3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 32px;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 4px 20px var(--glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--glow); }
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      padding: 40px 0;
+    }
+    .stat {
+      text-align: center;
+      padding: 24px 16px;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+    /* Section */
+    section { padding: 60px 0; }
+    section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* Category Grid */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .cat-card {
+      padding: 20px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cat-card:hover {
+      border-color: var(--accent-1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(102,126,234,0.15);
+    }
+    .cat-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .cat-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .cat-card p { color: var(--text-muted); font-size: 0.88rem; }
+    .cat-tag {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(102,126,234,0.12);
+      color: var(--accent-1);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* Platform Grid */
+    .plat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .plat-card {
+      padding: 24px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .plat-card:hover { border-color: var(--accent-3); transform: translateY(-3px); }
+    .plat-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .plat-card p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 80px 0;
+    }
+    .cta h2 { margin-bottom: 16px; }
+    .cta p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.1rem; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--accent-1); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 0 40px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="container">
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-badge">🧠 Open Source • MIT Licensed</div>
+      <h1>AI Skills Bank</h1>
+      <p>500 reusable AI skills — ready-to-use roles, behaviors, and prompt templates for every major AI coding agent.</p>
+      <div class="hero-buttons">
+        <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank" class="btn btn-primary">⭐ View on GitHub</a>
+        <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank#-quick-start" class="btn btn-secondary">🚀 Quick Start</a>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-num">500</div><div class="stat-label">AI Skills</div></div>
+      <div class="stat"><div class="stat-num">10</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Platforms</div></div>
+      <div class="stat"><div class="stat-num">MIT</div><div class="stat-label">License</div></div>
+    </div>
+
+    <!-- Categories -->
+    <section>
+      <h2>📂 Skill Categories</h2>
+      <div class="cat-grid">
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-general-meta.md">
+          <div class="cat-icon">🎯</div>
+          <h3>General & Meta Skills</h3>
+          <p>Planning, reasoning, formatting, and meta-cognitive patterns</p>
+          <span class="cat-tag">GS‑001 → GS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-coding.md">
+          <div class="cat-icon">💻</div>
+          <h3>Coding & Code Review</h3>
+          <p>Refactoring, testing, debugging, CI/CD, and security</p>
+          <span class="cat-tag">CS‑001 → CS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-data-analysis.md">
+          <div class="cat-icon">📊</div>
+          <h3>Data, Analysis & Math</h3>
+          <p>EDA, statistics, ML evaluation, SQL, and forecasting</p>
+          <span class="cat-tag">DS‑001 → DS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-research-reading.md">
+          <div class="cat-icon">🔬</div>
+          <h3>Research & Reading</h3>
+          <p>Paper summarization, literature reviews, and methodology</p>
+          <span class="cat-tag">RS‑001 → RS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-writing-editing.md">
+          <div class="cat-icon">✍️</div>
+          <h3>Writing & Editing</h3>
+          <p>Essays, emails, reports, SEO, and translation</p>
+          <span class="cat-tag">WS‑001 → WS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-product-ux-business.md">
+          <div class="cat-icon">📦</div>
+          <h3>Product, UX & Business</h3>
+          <p>PRDs, user stories, roadmaps, and competitive analysis</p>
+          <span class="cat-tag">PS‑001 → PS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-education-teaching.md">
+          <div class="cat-icon">🎓</div>
+          <h3>Education & Teaching</h3>
+          <p>Tutoring, lesson plans, quizzes, and study guides</p>
+          <span class="cat-tag">ES‑001 → ES‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-creativity-ideation.md">
+          <div class="cat-icon">💡</div>
+          <h3>Creativity & Ideation</h3>
+          <p>Brainstorming, storytelling, branding, and game design</p>
+          <span class="cat-tag">CR‑001 → CR‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-operations-productivity.md">
+          <div class="cat-icon">⚙️</div>
+          <h3>Operations & Productivity</h3>
+          <p>Project plans, SOPs, retrospectives, and delegation</p>
+          <span class="cat-tag">OS‑001 → OS‑050</span>
+        </a>
+        <a class="cat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/skills/skills-accessibility-multimodal.md">
+          <div class="cat-icon">♿</div>
+          <h3>Accessibility & Multimodal</h3>
+          <p>Alt-text, screen readers, navigation, and VLM tasks</p>
+          <span class="cat-tag">AS‑001 → AS‑050</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Platforms -->
+    <section>
+      <h2>🔌 Supported Platforms</h2>
+      <div class="plat-grid">
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/claude-code">
+          <h3>🟣 Claude Code</h3>
+          <p>Anthropic's terminal-native agent. Skills load via <code>CLAUDE.md</code> with 1M token context.</p>
+        </a>
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/codex-cli">
+          <h3>🟢 Codex CLI</h3>
+          <p>OpenAI's multi-agent tool. Skills in <code>~/.agents/skills/</code> with parallel execution.</p>
+        </a>
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/gemini-cli">
+          <h3>🔵 Gemini CLI</h3>
+          <p>Google's open-source agent. Skills via <code>GEMINI.md</code> with MCP & Deepthink.</p>
+        </a>
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/kimi-cli">
+          <h3>🌙 Kimi CLI</h3>
+          <p>Moonshot AI's terminal agent. Agent swarm with up to 300 sub-agents.</p>
+        </a>
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/aider">
+          <h3>🟡 Aider</h3>
+          <p>Git-first pair programmer. Skills via <code>.aider.conf.yml</code>, model-agnostic.</p>
+        </a>
+        <a class="plat-card" href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/tree/main/platforms/cline">
+          <h3>🔶 Cline</h3>
+          <p>VS Code autonomous agent. Skills as Custom Instructions with browser automation.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Ready to supercharge your AI workflow?</h2>
+      <p>Star the repo, pick your platform, and start using skills in minutes.</p>
+      <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank" class="btn btn-primary">⭐ Star on GitHub</a>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Built with 🧠 by <a href="https://github.com/Ayanzadeh93">Ayanzadeh93</a> • <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/LICENSE">MIT License</a></p>
+    </div>
+  </footer>
+</body>
+</html>

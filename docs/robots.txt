@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ayanzadeh93.github.io/Claude-Skills-Bank/sitemap.xml
