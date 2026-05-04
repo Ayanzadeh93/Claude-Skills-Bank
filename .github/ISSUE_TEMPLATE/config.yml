@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & support
+    url: https://github.com/Ayanzadeh93/Claude-Skills-Bank/blob/main/SUPPORT.md
+    about: Find the right place to ask questions or get help.
+  - name: Security issues
+    url: https://github.com/Ayanzadeh93/Claude-Skills-Bank/security/policy
+    about: Report security vulnerabilities privately.
