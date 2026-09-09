@@ -256,6 +256,19 @@ input[type="checkbox"]{accent-color:var(--accent); width:16px; height:16px}
 .ev.study{background:var(--focus-wash); border-left-color:var(--focus)}
 .ev.class{background:var(--long-wash); border-left-color:var(--long)}
 .ev.break{background:var(--rest-wash); border-left-color:var(--rest)}
+.ev.gcal{background:var(--surface-2); border-left-style:dashed; border-left-color:var(--ink-2); opacity:.96}
+.ev.gfocus{background:var(--focus-wash); border-left-style:dashed; border-left-color:var(--focus)}
+.ev.free{opacity:.72}
+.ev .src{font-family:var(--font-mono); font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.ev.allday{border-radius:5px; font-size:10px; padding:1px 6px}
+.gstat{display:flex; align-items:center; gap:7px; font-size:12px; margin-bottom:10px}
+.gstat .dot{width:8px;height:8px}
+.callist{display:flex; flex-direction:column; gap:2px; margin:2px 0 10px}
+.callist label{display:flex; align-items:center; gap:8px; padding:5px 6px; border-radius:8px; font-size:12.5px; cursor:pointer}
+.callist label:hover{background:var(--surface-2)}
+.callist .swatch{width:9px;height:9px;border-radius:3px;background:var(--muted);flex:none}
+.gerr{border:1px solid var(--line); border-left:3px solid var(--alert); border-radius:8px; padding:9px 11px; font-size:12px; line-height:1.45; color:var(--ink-2); margin-bottom:10px}
+.gerr strong{display:block; color:var(--ink); margin-bottom:2px}
 .nowline{position:absolute; left:0; right:0; height:2px; background:var(--focus); z-index:3; pointer-events:none}
 .nowline::before{content:""; position:absolute; left:-4px; top:-3px; width:8px;height:8px;border-radius:50%;background:var(--focus)}
 
@@ -532,17 +545,17 @@ svg.chart .lbl{fill:var(--ink-2); font-weight:600}
             <button class="btn primary" id="autoPlan" style="width:100%;justify-content:center;margin-top:12px">Auto-schedule this week</button>
             <p style="font-size:11.5px;color:var(--muted);margin:8px 0 0">Packs sessions into your free hours, weights by priority and how far each course is from its weekly target, and puts the heaviest course in your best hours.</p>
           </div>
+          <div class="card pad" id="gcalCard"></div>
           <div class="card pad">
-            <div class="panel-head"><h3>Google Calendar bridge</h3></div>
-            <p style="font-size:12px;color:var(--muted);margin:0 0 10px">This page runs sandboxed, so it never holds your Google password. It speaks calendar's own file format instead — both directions.</p>
+            <div class="panel-head"><h3>Manual bridge</h3><span class="eyebrow">no connector needed</span></div>
             <div class="stack" style="gap:8px">
-              <button class="btn" id="icsImportBtn" style="justify-content:center">Import .ics from Google</button>
-              <button class="btn" id="icsExportBtn" style="justify-content:center">Export week as .ics</button>
               <button class="btn" id="gcalPushBtn" style="justify-content:center">Push a block to Google</button>
+              <button class="btn" id="icsImportBtn" style="justify-content:center">Import an .ics file</button>
+              <button class="btn" id="icsExportBtn" style="justify-content:center">Export week as .ics</button>
             </div>
             <details style="margin-top:10px">
-              <summary style="font-size:11.5px;color:var(--muted);cursor:pointer">How to get your .ics</summary>
-              <p style="font-size:11.5px;color:var(--muted);line-height:1.5">Google Calendar → Settings → Settings for my calendars → your calendar → <em>Integrate calendar</em> → download the ICS file (or copy the secret address and open it). Then paste or upload it here.</p>
+              <summary style="font-size:11.5px;color:var(--muted);cursor:pointer">Where the .ics lives</summary>
+              <p style="font-size:11.5px;color:var(--muted);line-height:1.5">Google Calendar → Settings → Settings for my calendars → your calendar → <em>Integrate calendar</em> → download the ICS file. Use this if you ever open the app somewhere the connector is not available.</p>
             </details>
           </div>
           <div class="card pad">
@@ -797,6 +810,7 @@ const DEFAULTS = () => ({
               theme:'auto', accent:'focus', dayStart:'08:00', dayEnd:'21:00' },
   tasks: [], events: [], notes: [], sessions: [], checkins: [], subjects: [], links: [],
   sound: { master:60, layers:{}, beat:10, carrier:180 },
+  gcal: { on:false, cals:[], hideDeclined:true },
   timer: { phase:'focus', cycle:1, taskId:null, intent:'', activation:null },
   meta: { sample:false, created:Date.now() }
 });
@@ -1348,14 +1362,15 @@ function renderFocusSide() {
   $('#queueCount').textContent = S.tasks.filter(x => !x.done).length + ' open';
 
   const now = new Date(), k = dayKey(now);
-  const today = S.events.filter(e => dayKey(new Date(e.start)) === k).sort((a, b) => new Date(a.start) - new Date(b.start));
+  const today = dayEvents(k);
   $('#todayBlocks').innerHTML = today.length ? today.map(e => {
     const s = new Date(e.start), en = new Date(e.end), live = now >= s && now <= en;
+    const hue = e.source === 'google' ? (e.free ? 'muted' : 'ink-2') : (e.kind === 'class' ? 'long' : e.kind === 'break' ? 'rest' : 'focus');
     return `<div style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line)">
-      <span class="dot" style="margin-top:6px;background:var(--${e.kind === 'class' ? 'long' : e.kind === 'break' ? 'rest' : 'focus'})"></span>
+      <span class="dot" style="margin-top:6px;background:var(--${hue})"></span>
       <div style="flex:1;min-width:0">
         <div style="font-size:12.5px;font-weight:${live ? 700 : 500}">${esc(e.title)}${live ? ' <span class="eyebrow" style="color:var(--focus)">now</span>' : ''}</div>
-        <div class="m num" style="font-size:10.5px;color:var(--muted)">${hhmm(s)}–${hhmm(en)}</div>
+        <div class="m num" style="font-size:10.5px;color:var(--muted)">${e.allDay ? 'all day' : hhmm(s) + '–' + hhmm(en)}${e.source === 'google' ? ' · google' : ''}</div>
       </div></div>`;
   }).join('') : '<div class="empty">Nothing scheduled today. The plan view can fill it in.</div>';
 
@@ -1462,6 +1477,30 @@ function winHours() {
   const a = Math.floor(parseHM(S.settings.dayStart) / 60), b = Math.ceil(parseHM(S.settings.dayEnd) / 60);
   return { a, b, n: Math.max(1, b - a) };
 }
+function dayEvents(k) {
+  const local = S.events.filter(e => dayKey(new Date(e.start)) === k);
+  return local.concat(gcalEventsFor(k)).sort((x, y) => new Date(x.start) - new Date(y.start) || (new Date(y.end) - new Date(x.end)));
+}
+/* Overlapping events share the day column: sweep into clusters, give each
+   event the first free lane, then split the width across the cluster. */
+function layoutDay(evs) {
+  const out = []; let cluster = [], clusterEnd = 0;
+  const flush = () => {
+    if (!cluster.length) return;
+    const lanes = Math.max(...cluster.map(x => x.lane)) + 1;
+    cluster.forEach(x => out.push({ ev:x.ev, lane:x.lane, lanes }));
+    cluster = [];
+  };
+  evs.forEach(ev => {
+    const s0 = +new Date(ev.start), e0 = +new Date(ev.end);
+    if (s0 >= clusterEnd) { flush(); clusterEnd = 0; }
+    const taken = new Set(cluster.filter(x => +new Date(x.ev.end) > s0).map(x => x.lane));
+    let lane = 0; while (taken.has(lane)) lane++;
+    cluster.push({ ev, lane }); clusterEnd = Math.max(clusterEnd, e0);
+  });
+  flush();
+  return out;
+}
 function renderCalendar() {
   const { a, b, n } = winHours(), H = 44;
   const days = Array.from({ length:7 }, (_, i) => new Date(weekAnchor.getTime() + i * DAY));
@@ -1472,34 +1511,52 @@ function renderCalendar() {
   days.forEach((d, i) => { html += `<div class="cal-h ${dayKey(d) === todayK ? 'today' : ''}"><div class="d">${DOW[i]}</div><div class="n">${d.getDate()}</div></div>`; });
   html += '<div class="cal-hours">' + Array.from({ length:n }, (_, i) => `<div class="hour-lbl">${pad2(a + i)}:00</div>`).join('') + '</div>';
   days.forEach(d => {
-    const k = dayKey(d);
-    const evs = S.events.filter(e => dayKey(new Date(e.start)) === k).sort((x, y) => new Date(x.start) - new Date(y.start));
+    const k = dayKey(d), all = dayEvents(k);
+    const allDay = all.filter(e => e.allDay), timed = all.filter(e => !e.allDay);
     let inner = Array.from({ length:n }, () => '<div class="hour"></div>').join('');
-    evs.forEach(e => {
-      const s = new Date(e.start), en = new Date(e.end);
-      const top = ((s.getHours() * 60 + s.getMinutes()) - a * 60) / 60 * H;
-      const h = Math.max(18, ((en - s) / 60000) / 60 * H - 2);
-      if (top < -H || top > n * H) return;
-      inner += `<div class="ev ${e.kind}" data-ev="${e.id}" style="top:${Math.max(0, top)}px;height:${h}px">
-        <div class="ttl">${esc(e.title)}</div><div class="tm">${hhmm(s)}–${hhmm(en)}</div></div>`;
+    allDay.forEach((e, i) => {
+      inner += `<div class="ev allday ${e.source === 'google' ? 'gcal' : (e.kind || 'other')}" ${e.source === 'google' ? `data-glink="${esc(e.link || '')}"` : `data-ev="${e.id}"`}
+        style="top:${1 + i * 17}px;height:15px" data-tip="${esc(e.title)} · all day"><div class="ttl">${esc(e.title)}</div></div>`;
+    });
+    const offset = allDay.length ? allDay.length * 17 + 2 : 0;
+    layoutDay(timed).forEach(({ ev: e, lane, lanes }) => {
+      const s0 = new Date(e.start), en = new Date(e.end);
+      const top = ((s0.getHours() * 60 + s0.getMinutes()) - a * 60) / 60 * H + offset;
+      const h = Math.max(17, ((en - s0) / 60000) / 60 * H - 2);
+      if (top < -H || top > n * H + offset) return;
+      /* Two abreast still reads; beyond that, indent and stack like Google's
+         own grid rather than slicing the column into unreadable slivers. */
+      const w = lanes <= 2 ? 100 / lanes : 100 - lane * 17, left = lanes <= 2 ? lane * (100 / lanes) : lane * 17;
+      const cls = e.source === 'google' ? (e.kind === 'gfocus' ? 'gfocus' : 'gcal') + (e.free ? ' free' : '') : (e.kind || 'other');
+      const attr = e.source === 'google' ? `data-glink="${esc(e.link || '')}"` : `data-ev="${e.id}"`;
+      inner += `<div class="ev ${cls}" ${attr} style="top:${Math.max(0, top)}px;height:${h}px;left:calc(${left}% + 3px);width:calc(${w}% - 6px);z-index:${2 + lane}"
+          data-tip="${esc(e.title)} · ${hhmm(s0)}–${hhmm(en)}${e.source === 'google' ? ' · from Google Calendar' + (e.free ? ', marked free' : '') : ''}">
+        <div class="ttl">${esc(e.title)}</div><div class="tm">${hhmm(s0)}–${hhmm(en)}</div>
+        ${e.source === 'google' && h > 40 ? '<div class="src">google</div>' : ''}</div>`;
     });
     if (k === todayK) {
       const now = new Date(), mins = now.getHours() * 60 + now.getMinutes() - a * 60;
-      if (mins >= 0 && mins <= n * 60) inner += `<div class="nowline" style="top:${mins / 60 * H}px"></div>`;
+      if (mins >= 0 && mins <= n * 60) inner += `<div class="nowline" style="top:${mins / 60 * H + offset}px"></div>`;
     }
-    html += `<div class="cal-body" data-day="${k}" style="height:${n * H}px">${inner}</div>`;
+    html += `<div class="cal-body" data-day="${k}" style="height:${n * H + offset}px">${inner}</div>`;
   });
   $('#calGrid').innerHTML = html;
-  $$('#calGrid .ev').forEach(el => el.onclick = ev => { ev.stopPropagation(); editEvent(el.dataset.ev); });
-  $$('#calGrid .cal-body').forEach(el => el.onclick = ev => {
-    const y = ev.offsetY, hour = a + Math.floor(y / H);
-    newEvent(el.dataset.day, pad2(hour) + ':00');
+  $$('#calGrid .ev[data-ev]').forEach(el => el.onclick = ev => { ev.stopPropagation(); editEvent(el.dataset.ev); });
+  $$('#calGrid .ev[data-glink]').forEach(el => el.onclick = ev => {
+    ev.stopPropagation();
+    if (el.dataset.glink) window.open(el.dataset.glink, '_blank', 'noopener');
+    else toast('This one came from Google — edit it there');
   });
-  renderSubjects();
+  $$('#calGrid .cal-body').forEach(el => el.onclick = ev => {
+    if (ev.target.closest('.ev')) return;
+    const hour = a + Math.floor(ev.offsetY / H);
+    newEvent(el.dataset.day, pad2(clamp(hour, a, b - 1)) + ':00');
+  });
+  renderSubjects(); renderGcal();
 }
-$('#weekPrev').onclick = () => { weekAnchor = new Date(weekAnchor - 7 * DAY); renderCalendar(); };
-$('#weekNext').onclick = () => { weekAnchor = new Date(+weekAnchor + 7 * DAY); renderCalendar(); };
-$('#weekToday').onclick = () => { weekAnchor = startOfWeek(new Date()); renderCalendar(); };
+$('#weekPrev').onclick = () => { weekAnchor = new Date(weekAnchor - 7 * DAY); renderCalendar(); gcalSubscribe(); };
+$('#weekNext').onclick = () => { weekAnchor = new Date(+weekAnchor + 7 * DAY); renderCalendar(); gcalSubscribe(); };
+$('#weekToday').onclick = () => { weekAnchor = startOfWeek(new Date()); renderCalendar(); gcalSubscribe(); };
 $('#addEventBtn').onclick = () => newEvent(dayKey(new Date()), '09:00');
 function eventForm(e) {
   return `<div class="field"><label for="evT">Title</label><input type="text" id="evT" value="${esc(e.title || '')}" placeholder="Optimization — problem set"></div>
@@ -1701,8 +1758,9 @@ function subjectModal(id) {
 }
 $('#addSubject').onclick = () => subjectModal(null);
 function busyIntervals(dateKeyStr) {
-  return S.events.filter(e => dayKey(new Date(e.start)) === dateKeyStr)
-    .map(e => ({ s:new Date(e.start), e:new Date(e.end) })).sort((a, b) => a.s - b.s);
+  const local = S.events.filter(e => dayKey(new Date(e.start)) === dateKeyStr);
+  const live = gcalEventsFor(dateKeyStr).filter(e => !e.free && !e.allDay);
+  return local.concat(live).map(e => ({ s:new Date(e.start), e:new Date(e.end) })).sort((a, b) => a.s - b.s);
 }
 function freeSlots(d, blockMin) {
   const { a, b } = winHours(), k = dayKey(d);
@@ -2088,6 +2146,185 @@ $('#exportCsv').onclick = () => {
   offerText('focus-sessions.csv', csv, 'Every session you have logged, ready for a spreadsheet or pandas.');
 };
 
+
+/* =====================================================================
+   GOOGLE CALENDAR — live, through the viewer's own claude.ai connector.
+   The page never sees a token: claude.use("mcp") calls the connector
+   with the viewer's credentials. Read-only; events are held in memory
+   only and never written to localStorage.
+   ===================================================================== */
+const GCAL = { mcp:null, state:'boot', cals:[], events:{}, subs:[], error:null, lastAt:null, busy:false };
+const GSERVER = 'Google Calendar';
+const GCAL_ERRORS = {
+  needs_reauth:        ['Google Calendar needs reconnecting', 'Its access token lapsed. Reconnect it in claude.ai → Settings → Connectors, then hit Sync now.'],
+  server_not_connected:['No Google Calendar connector', 'Add Google Calendar in claude.ai → Settings → Connectors and reload this page.'],
+  selection_required:  ['More than one Google Calendar connector', 'claude.ai will ask which one to use — pick it, then hit Sync now.'],
+  not_in_manifest:     ['This view is not allowed to read your calendar', 'Either the connector was switched off for this page, or the permission prompt was declined. Turn it back on from the artifact menu.'],
+  blocked_by_policy:   ['Blocked by your organisation', 'A UMBC workspace policy blocks this tool for your account. The .ics bridge below still works.'],
+  approval_required:   ['Needs a per-call approval', 'Your policy wants each call approved, which artifacts cannot request yet. Use the .ics bridge below.'],
+  server_not_found:    ['That connector no longer exists', 'Re-add Google Calendar in claude.ai → Settings → Connectors.'],
+  server_unavailable:  ['Google did not answer just now', 'Showing the last copy that arrived. It retries on its own every few minutes.'],
+  tool_error:          ['Google refused that request', ''],
+  cancelled:           ['The request was cancelled', 'Hit Sync now to try again.']
+};
+const RETRACTING = ['needs_reauth','server_not_connected','not_in_manifest','blocked_by_policy','approval_required','server_not_found','selection_required'];
+async function useCap(name) {
+  try { return (window.claude && typeof window.claude.use === 'function') ? await window.claude.use(name) : null; }
+  catch (e) { return null; }
+}
+function gcalEventsFor(k) {
+  if (!S.gcal.on) return [];
+  const out = [];
+  S.gcal.cals.forEach(id => (GCAL.events[id] || []).forEach(e => { if (e.dayKey === k) out.push(e); }));
+  return out;
+}
+function normaliseGoogle(payload, calId) {
+  const list = (payload && payload.events) || [];
+  const out = [];
+  list.forEach(e => {
+    if (e.status === 'cancelled') return;
+    const rawS = e.start && (e.start.dateTime || e.start.date);
+    if (!rawS) return;
+    const allDay = !(e.start && e.start.dateTime);
+    const start = allDay ? keyToDate(rawS.slice(0, 10)) : new Date(rawS);
+    const rawE = e.end && (e.end.dateTime || e.end.date);
+    const end = rawE ? (allDay ? keyToDate(rawE.slice(0, 10)) : new Date(rawE)) : new Date(+start + 3600000);
+    if (isNaN(+start)) return;
+    if (S.gcal.hideDeclined) {
+      const me = (e.attendees || []).find(a => a.self);
+      if (me && me.responseStatus === 'declined') return;
+    }
+    out.push({
+      id: 'g:' + calId + ':' + e.id, source:'google', calId,
+      title: e.summary || '(no title)', allDay,
+      start: start.toISOString(), end: end.toISOString(), dayKey: dayKey(start),
+      free: e.availability === 'AVAILABILITY_FREE' || e.transparency === 'transparent' || allDay,
+      kind: e.eventType === 'FOCUS_TIME' ? 'gfocus' : 'gcal',
+      link: e.htmlLink || '', location: e.location || ''
+    });
+  });
+  return out;
+}
+function gcalUnsub() { GCAL.subs.forEach(u => { try { u(); } catch (e) {} }); GCAL.subs = []; }
+function gcalSubscribe() {
+  gcalUnsub();
+  if (!GCAL.mcp || !S.gcal.on || !S.gcal.cals.length) return;
+  const from = new Date(weekAnchor), to = new Date(+weekAnchor + 7 * DAY);
+  S.gcal.cals.forEach(id => {
+    const input = { calendarId:id, startTime:from.toISOString(), endTime:to.toISOString(), orderBy:'startTime', pageSize:100 };
+    const un = GCAL.mcp.watchTool(GSERVER, 'list_events', input, ev => {
+      if (ev.type === 'data') {
+        GCAL.error = null; GCAL.state = 'live';
+        GCAL.events[id] = normaliseGoogle(ev.result && ev.result.payload, id);
+        GCAL.lastAt = (ev.result && ev.result.cache) ? ev.result.cache.storedAt : Date.now();
+        if (view === 'plan') renderCalendar();
+        renderFocusSide(); renderGcal();
+      } else {
+        gcalFail(ev.error, id);
+      }
+    }, { refetchInterval: 300000 });
+    GCAL.subs.push(un);
+  });
+}
+function gcalFail(err, calId) {
+  GCAL.error = err || { code:'upstream_error', message:'Unknown failure' };
+  if (RETRACTING.includes(GCAL.error.code)) { GCAL.events = {}; GCAL.state = 'blocked'; }
+  else GCAL.state = 'stale';
+  if (view === 'plan') renderCalendar();
+  renderFocusSide(); renderGcal();
+}
+async function gcalLoadCalendars(retried) {
+  if (!GCAL.mcp) return false;
+  GCAL.busy = true; renderGcal();
+  try {
+    const res = await GCAL.mcp.callTool(GSERVER, 'list_calendars', { pageSize: 50 });
+    const payload = res && res.payload;
+    GCAL.cals = (payload && payload.calendars) || [];
+    GCAL.error = null; GCAL.busy = false;
+    if (!S.gcal.cals.length && GCAL.cals.length) S.gcal.cals = [GCAL.cals[0].id];
+    save(); return true;
+  } catch (err) {
+    GCAL.busy = false;
+    if (err && err.retryable && !retried) {
+      await new Promise(r => setTimeout(r, Math.min(err.retryAfterMs || 1200, 4000) + Math.random() * 400));
+      return gcalLoadCalendars(true);
+    }
+    gcalFail(err); return false;
+  }
+}
+async function gcalConnect() {
+  if (!GCAL.mcp) return;
+  const ok = await gcalLoadCalendars();
+  if (!ok) return;
+  S.gcal.on = true; save();
+  gcalSubscribe(); renderGcal();
+  toast('Google Calendar linked');
+}
+function gcalDisconnect() {
+  S.gcal.on = false; GCAL.events = {}; GCAL.error = null; GCAL.state = 'idle'; save();
+  gcalUnsub(); renderGcal(); renderCalendar(); renderFocusSide();
+  toast('Unlinked — your local blocks are untouched');
+}
+function gcalSyncNow() {
+  if (!GCAL.mcp || !S.gcal.on) return;
+  GCAL.error = null;
+  try { GCAL.mcp.invalidate(GSERVER, 'list_events'); } catch (e) {}
+  gcalSubscribe(); toast('Refreshing from Google');
+}
+function agoLabel(ts) {
+  if (!ts) return 'never';
+  const m = Math.round((Date.now() - ts) / 60000);
+  return m < 1 ? 'just now' : m === 1 ? '1 min ago' : m < 60 ? m + ' min ago' : Math.round(m / 60) + ' h ago';
+}
+function renderGcal() {
+  const box = $('#gcalCard'); if (!box) return;
+  const head = '<div class="panel-head"><h3>Google Calendar</h3>' +
+    (S.gcal.on ? '<button class="btn sm ghost" id="gSync">Sync now</button>' : '<span class="eyebrow">live</span>') + '</div>';
+  let body = '';
+  const err = GCAL.error ? (GCAL_ERRORS[GCAL.error.code] || ['Google Calendar could not be reached', GCAL.error.message || '']) : null;
+  if (GCAL.state === 'boot') {
+    body = '<div class="gstat"><span class="dot"></span>Looking for your connector…</div>';
+  } else if (GCAL.state === 'unavailable') {
+    body = `<p style="font-size:12px;color:var(--muted);margin:0 0 8px">This copy of the page cannot reach connectors — that happens outside claude.ai, or when the page is opened as a plain file. Use the manual .ics bridge below.</p>`;
+  } else if (!S.gcal.on) {
+    body = `<p style="font-size:12px;color:var(--muted);margin:0 0 10px">Read your real schedule straight into this planner. Calls run with your own claude.ai credentials — the page never sees a password or token, and nothing from Google is written to this browser's storage.</p>
+      <button class="btn primary" id="gConnect" style="width:100%;justify-content:center">${GCAL.busy ? 'Connecting…' : 'Link my Google Calendar'}</button>`;
+  } else {
+    const colour = GCAL.state === 'live' ? 'var(--good)' : GCAL.state === 'stale' ? 'var(--alert)' : 'var(--crit)';
+    const count = S.gcal.cals.reduce((a, id) => a + (GCAL.events[id] || []).length, 0);
+    body = `<div class="gstat"><span class="dot" style="background:${colour}"></span>
+        <span>${GCAL.state === 'blocked' ? 'Not syncing' : `${count} events this week · updated ${agoLabel(GCAL.lastAt)}`}</span></div>`;
+    if (err) body += `<div class="gerr"><strong>${esc(err[0])}</strong>${esc(err[1] || GCAL.error.message || '')}</div>`;
+    body += '<div class="callist">' + GCAL.cals.map(c => `<label><input type="checkbox" data-cal="${esc(c.id)}" ${S.gcal.cals.includes(c.id) ? 'checked' : ''}>
+        <span class="swatch"></span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.summary || c.id)}</span></label>`).join('') + '</div>';
+    body += `<div class="switch-row" style="padding:6px 0"><div class="lbl" style="font-size:12.5px">Hide events I declined</div>
+        <input type="checkbox" id="gDeclined" ${S.gcal.hideDeclined ? 'checked' : ''}></div>`;
+    body += `<p style="font-size:11.5px;color:var(--muted);margin:8px 0 10px">Google events are read-only here and never leave your session — edit them in Google, and they refresh within five minutes. Your own study blocks stay local.</p>`;
+    body += `<button class="btn" id="gOff" style="width:100%;justify-content:center">Unlink</button>`;
+  }
+  box.innerHTML = head + body;
+  const c = $('#gConnect'); if (c) c.onclick = gcalConnect;
+  const sy = $('#gSync'); if (sy) sy.onclick = gcalSyncNow;
+  const off = $('#gOff'); if (off) off.onclick = gcalDisconnect;
+  const dec = $('#gDeclined'); if (dec) dec.onchange = e => {
+    S.gcal.hideDeclined = e.target.checked; save();
+    Object.keys(GCAL.events).forEach(k => delete GCAL.events[k]);
+    gcalSyncNow();
+  };
+  $$('#gcalCard [data-cal]').forEach(cb => cb.onchange = () => {
+    const id = cb.dataset.cal;
+    S.gcal.cals = cb.checked ? S.gcal.cals.concat([id]) : S.gcal.cals.filter(x => x !== id);
+    if (!cb.checked) delete GCAL.events[id];
+    save(); gcalSubscribe(); renderGcal(); renderCalendar(); renderFocusSide();
+  });
+}
+async function gcalBoot() {
+  const mcp = await useCap('mcp');
+  if (!mcp) { GCAL.state = 'unavailable'; renderGcal(); return; }
+  GCAL.mcp = mcp; GCAL.state = 'idle'; renderGcal();
+  if (S.gcal.on) { const ok = await gcalLoadCalendars(); renderGcal(); if (ok) gcalSubscribe(); }
+}
+
 /* =====================================================================
    SETTINGS + DATA
    ===================================================================== */
@@ -2175,7 +2412,8 @@ $('#resetBtn2').onclick = () => openModal('Erase everything?', `
 $('#clearSample').onclick = () => {
   S.sessions = []; S.checkins = []; S.notes = []; S.tasks = []; S.events = []; S.subjects = [];
   S.meta.sample = false; S.timer.taskId = null; S.timer.intent = '';
-  save(); renderAll(); toast('Clean slate — it is yours now');
+  save(); renderAll(); if (S.gcal.on) gcalSubscribe();
+  toast('Clean slate — your Google link is untouched');
 };
 
 /* =====================================================================
@@ -2198,7 +2436,8 @@ const COMMANDS = () => [
   { k:'Go to Statistics', s:'7', run:() => go('stats') },
   { k:'Go to Setup', s:'8', run:() => go('settings') },
   { k:'Auto-schedule this week', s:'', run:() => { go('plan'); $('#autoPlan').click(); } },
-  { k:'Import .ics from Google', s:'', run:() => { go('plan'); $('#icsImportBtn').click(); } },
+  { k:'Sync Google Calendar now', s:'', run:() => { go('plan'); gcalSyncNow(); } },
+  { k:'Import an .ics file', s:'', run:() => { go('plan'); $('#icsImportBtn').click(); } },
   { k:'Export everything (JSON)', s:'', run:() => $('#exportBtn').click() },
   { k:'Start a breathing round', s:'', run:() => { go('calm'); $('#breathBtn').click(); } },
   { k:'Switch theme', s:'', run:() => $('#themeBtn').click() }
@@ -2337,7 +2576,7 @@ function seedSample() {
    ===================================================================== */
 function renderAll() {
   applyTheme(); renderPips(); renderDial(); renderFocusSide(); renderTasks();
-  renderCalendar(); renderBoard(); renderSound(); renderCalm(); renderSettings(); renderStats();
+  renderCalendar(); renderBoard(); renderSound(); renderCalm(); renderSettings(); renderStats(); renderGcal();
   $('#sampleBanner').hidden = !S.meta.sample;
   $('#dayStart').value = S.settings.dayStart; $('#dayEnd').value = S.settings.dayEnd;
 }
@@ -2348,6 +2587,7 @@ function renderAll() {
   setPhase(S.timer.phase || 'focus', false);
   renderAll();
   go('focus');
+  gcalBoot();
   setInterval(() => { if (view === 'plan') renderCalendar(); renderTopStats(); }, 60000);
   window.addEventListener('beforeunload', () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { tickRemain(); renderDial(); } });
