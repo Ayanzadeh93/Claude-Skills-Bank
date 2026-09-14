@@ -17,6 +17,21 @@ Published as an Artifact: the file is the whole app.
 | **Calm** | Box / 4-7-8 / coherent breathing pacer, 5-4-3-2-1 grounding, movement snacks, energy–stress–focus check-ins |
 | **Stats** | Focus minutes per day, best-hours histogram, 13-week consistency heatmap, distraction causes, check-in sparklines, per-course totals, session log, CSV export, derived insights |
 
+## Relationship to the live app
+
+This is **not** the primary build. A further-developed version of this same application
+ships on the author's website at
+[ayanzadeh.com/apps/adhd-study-pack.html](https://www.ayanzadeh.com/apps/adhd-study-pack.html)
+(project page: `/projects/adhd-study-pack.html`), split into `js/adhd-study-pack.js` and
+`css/adhd-study-pack.css` at v3.4.0. That build adds an Eisenhower matrix, mood tracking,
+accessibility comfort profiles, Firebase Authentication with per-record Firestore sync,
+and Google Calendar over a real OAuth handshake.
+
+The one thing only this build does is read Google Calendar through the viewer's claude.ai
+connector (`claude.use("mcp")`), which needs no OAuth and no token in the page — but works
+only inside claude.ai. Everywhere else it degrades to the `.ics` bridge. Treat this file as
+the artifact variant; take the website build as canonical for everything else.
+
 ## Design notes
 
 - **Storage** — one `localStorage` key (`focusdial.v2`); JSON export/import is the backup and the migration path to a desktop build.
