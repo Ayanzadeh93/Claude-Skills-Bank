@@ -350,6 +350,14 @@ We welcome contributions! See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guideline
 
 ---
 
+## 🛡️ Community & Support
+
+- Please review the [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+- Report security issues via our [Security Policy](SECURITY.md).
+- For help, questions, or feedback, see [Support](SUPPORT.md).
+
+---
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
