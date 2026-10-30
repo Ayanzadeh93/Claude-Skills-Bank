@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace" role="img" aria-label="Terminal demo activating roles with AI Skills Bank">
+  <rect width="760" height="420" fill="#0d1117"/>
+  <rect width="760" height="44" rx="0" fill="#161b22"/>
+  <circle cx="28" cy="22" r="7" fill="#ff5f57"/>
+  <circle cx="52" cy="22" r="7" fill="#febc2e"/>
+  <circle cx="76" cy="22" r="7" fill="#28c840"/>
+  <text x="380" y="27" text-anchor="middle" fill="#8b949e" font-size="15">AI Skills Bank — drop a skill into any AI coding CLI</text>
+  <line x1="0" y1="44" x2="760" y2="44" stroke="#30363d" stroke-width="1"/>
+
+  <g><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.02;0.9;1" dur="10s" begin="0s" repeatCount="indefinite"/>
+    <text x="32" y="92" fill="#79c0ff" font-size="18">&#10095; claude --skill CS-009</text>
+    <text x="32" y="122" fill="#7ee787" font-size="16">  &#9989; Code Review Partner activated — structure &#183; security &#183; performance</text>
+  </g>
+  <g><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.02;0.9;1" dur="10s" begin="2s" repeatCount="indefinite"/>
+    <text x="32" y="164" fill="#79c0ff" font-size="18">&#10095; codex-cli --skill DS-004</text>
+    <text x="32" y="194" fill="#7ee787" font-size="16">  &#9989; EDA Strategist — full analysis plan ready before any code</text>
+  </g>
+  <g><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.02;0.9;1" dur="10s" begin="4s" repeatCount="indefinite"/>
+    <text x="32" y="236" fill="#79c0ff" font-size="18">&#10095; gemini --session "Use GS-016, GS-020"</text>
+    <text x="32" y="266" fill="#7ee787" font-size="16">  &#9989; Answers now walk numbered steps &#183; edge cases flagged first</text>
+  </g>
+
+  <g><animate attributeName="opacity" values="0;1" keyTimes="0;0.35" dur="10s" begin="0s" repeatCount="indefinite"/>
+    <text x="380" y="352" text-anchor="middle" fill="#b7becd" font-size="17">500 skills &#183; 10 categories &#183; 6 CLIs &#183; MIT</text>
+    <text x="380" y="384" text-anchor="middle" fill="#f78166" font-size="16">&#9654; github.com/Ayanzadeh93/Claude-Skills-Bank</text>
+  </g>
+</svg>
