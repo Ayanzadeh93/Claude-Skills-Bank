@@ -13,6 +13,8 @@
   <a href="#-categories"><img src="https://img.shields.io/badge/Categories-10-blue?style=for-the-badge" alt="10 Categories"/></a>
   <a href="#-supported-platforms"><img src="https://img.shields.io/badge/Platforms-6-green?style=for-the-badge" alt="6 Platforms"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"/></a>
+  <a href="skills.json"><img src="https://img.shields.io/badge/Index-skills.json-informational?style=for-the-badge" alt="Machine-readable skills.json index"/></a>
+  <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/actions/workflows/validate-skills.yml"><img src="https://img.shields.io/github/actions/workflow/status/Ayanzadeh93/Claude-Skills-Bank/validate-skills.yml?style=for-the-badge&label=skills%20validated" alt="Validate skills"/></a>
 </p>
 
 <p align="center">
