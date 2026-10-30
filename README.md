@@ -20,7 +20,8 @@
   <a href="#-supported-platforms">Platforms</a> •
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-usage-patterns">Usage</a> •
-  <a href="#-contributing">Contributing</a>
+  <a href="#-contributing">Contributing</a> •
+  <a href="#-roadmap">Roadmap</a>
 </p>
 
 ---
@@ -34,10 +35,39 @@ A curated library of **500 AI "skills"** — reusable roles, behaviors, and prom
 - 📝 **Described** — One-line actionable description
 
 > **Originally built for Claude, now adapted for every major AI coding CLI.**
+### 🎬 See it in action
+
+<p align="center">
+  <img src="assets/demo.svg" alt="Terminal demo — dropping AI Skills Bank skills into Claude Code, Codex CLI and Gemini CLI" width="760"/>
+</p>
+
+### 🥇 How This Compares
+
+Why reach for this instead of a plain prompt list?
+
+| | **AI Skills Bank** | `awesome-*` prompt lists | Prompt marketplaces |
+|:--|:--|:--|:--|
+| Stable, documented skill IDs (`CS-009`) | ✓ | — | — |
+| Ready-made configs for 6 AI CLIs | ✓ | — | partial |
+| Skill chains and routing patterns | ✓ | — | — |
+| Self-hosted, no signup, MIT | ✓ | ✓ | — |
+| Curated, human-reviewed templates | ✓ | ✓ | ✓ |
+
 
 ---
 
 ## 🚀 Quick Start
+
+### ⚡ 30-Second Start
+
+```bash
+git clone https://github.com/Ayanzadeh93/Claude-Skills-Bank
+# then open the category that matches your task, e.g.
+open skills/skills-coding.md          # macOS    (Windows: start skills/skills-coding.md)
+```
+
+Paste any skill into your CLI's context file (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md` …) and it takes effect immediately. No install, no build, no signup.
+
 
 ### 1. Pick a Skill
 
@@ -339,7 +369,9 @@ Active Skills:
 
 ## 🤝 Contributing
 
-We welcome contributions! See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines.
+We welcome contributions! See [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidelines, and see where the project is going in [`ROADMAP.md`](ROADMAP.md).
+
+**Looking for a place to start?** Browse [`good first issue`](https://github.com/Ayanzadeh93/Claude-Skills-Bank/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) tickets — small, clearly scoped tasks.
 
 **Ways to contribute:**
 - 🆕 Propose new skills
@@ -366,7 +398,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## ⭐ Star History
 
-If this project helps you build better AI workflows, consider giving it a ⭐!
+[![Star History Chart](https://api.star-history.com/svg?repos=Ayanzadeh93/Claude-Skills-Bank&type=Date)](https://star-history.com/#Ayanzadeh93/Claude-Skills-Bank&Date)
+
+If this project helps you build better AI workflows, consider giving it a ⭐ — it helps others find the collection.
 
 ---
 
