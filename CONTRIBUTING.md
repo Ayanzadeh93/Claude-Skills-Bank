@@ -17,7 +17,7 @@ A skill should be:
 
 ### How to Propose
 
-1. **Open an Issue** with the title: `[New Skill] Category‑XXX – Skill Name`
+1. **Open an Issue** with the title: `[New Skill] Category-XXX – Skill Name`
 2. Include:
    - **Category** (GS, CS, DS, RS, WS, PS, ES, CR, OS, or AS)
    - **Proposed ID** (next available number in the category)
@@ -86,10 +86,10 @@ platforms/
 
 ### Markdown
 
-- Use `‑` (non-breaking hyphen, U+2011) in skill IDs (e.g., `GS‑001`)
-- Use `–` (en dash, U+2013) to separate ID from name (e.g., `GS‑001 – Name`)
+- Use `-` (non-breaking hyphen, U+2011) in skill IDs (e.g., `GS-001`)
+- Use `–` (en dash, U+2013) to separate ID from name (e.g., `GS-001 – Name`)
 - Use `&` in Markdown headings for compound category names
-- Wrap skill entries in bold: `**GS‑001 – Name**`
+- Wrap skill entries in bold: `**GS-001 – Name**`
 
 ### Formatting
 

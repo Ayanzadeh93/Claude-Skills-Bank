@@ -21,10 +21,10 @@ Gemini CLI uses project context files:
 
 | Mode | Use With Skills |
 |:-----|:----------------|
-| **Ask Mode** | Interactive brainstorming — use GS‑002, GS‑017, CR skills |
+| **Ask Mode** | Interactive brainstorming — use GS-002, GS-017, CR skills |
 | **Auto-run Mode** | Autonomous execution — use CS, OS skills with safety checks |
 | **Thinking Mode** | Deep reasoning — use RS, DS skills for complex analysis |
-| **Fast Mode** | Quick tasks — use GS‑040, WS‑005 for concise output |
+| **Fast Mode** | Quick tasks — use GS-040, WS-005 for concise output |
 
 ## Key Advantages for Skills
 

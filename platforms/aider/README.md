@@ -31,9 +31,9 @@ Aider uses system prompts to define behavior:
 
 | Mode | Best Skills | Use Case |
 |:-----|:-----------|:---------|
-| **Architect** | GS‑004, GS‑005, GS‑020, CS‑049 | Planning, decomposition, risk analysis |
-| **Code** | CS‑003, CS‑006, CS‑047, CS‑024 | Implementation, testing, error handling |
-| **Ask** | GS‑002, RS‑004, DS‑004 | Research, exploration, analysis |
+| **Architect** | GS-004, GS-005, GS-020, CS-049 | Planning, decomposition, risk analysis |
+| **Code** | CS-003, CS-006, CS-047, CS-024 | Implementation, testing, error handling |
+| **Ask** | GS-002, RS-004, DS-004 | Research, exploration, analysis |
 
 ## Files
 

@@ -33,19 +33,19 @@ Copy this into your `CLAUDE.md`:
 # Skills Configuration
 
 ## Always Active
-- GS‑016 – "Think Step by Step" Enforcer: Structure all solutions as numbered steps
-- GS‑020 – Risk & Edge‑Case Spotter: List edge cases before implementing
-- GS‑006 – Constraint Enforcer: Follow style guide and project rules
+- GS-016 – "Think Step by Step" Enforcer: Structure all solutions as numbered steps
+- GS-020 – Risk & Edge-Case Spotter: List edge cases before implementing
+- GS-006 – Constraint Enforcer: Follow style guide and project rules
 
 ## Code Tasks
-- CS‑009 – Code Review Partner: Review with priority-labeled comments
-- CS‑011 – Secure Coding Checker: Flag security issues
-- CS‑006 – Test Case Generator: Suggest tests for new code
-- CS‑005 – Documentation‑First Coder: Write docs before code
+- CS-009 – Code Review Partner: Review with priority-labeled comments
+- CS-011 – Secure Coding Checker: Flag security issues
+- CS-006 – Test Case Generator: Suggest tests for new code
+- CS-005 – Documentation-First Coder: Write docs before code
 
 ## Writing Tasks
-- WS‑005 – Clarity & Brevity Editor: Keep writing concise
-- WS‑007 – Grammar & Style Checker: Correct all grammar issues
+- WS-005 – Clarity & Brevity Editor: Keep writing concise
+- WS-007 – Grammar & Style Checker: Correct all grammar issues
 ```
 
 ## Files

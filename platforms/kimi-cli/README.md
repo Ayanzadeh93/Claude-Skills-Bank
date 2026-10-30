@@ -32,15 +32,15 @@ Kimi CLI operates as a "chassis" for Moonshot's coding models:
 
 ### Solo Agent (Simple Tasks)
 ```
-Skills: GS‑016, CS‑003, CS‑006
+Skills: GS-016, CS-003, CS-006
 ```
 
 ### Swarm (Complex Projects)
 ```
-Main Agent:     GS‑004 (Task Decomposer) + GS‑005 (Orchestrator)
-Sub-Agent 1:    CS‑003 (Refactoring) + CS‑006 (Testing)
-Sub-Agent 2:    CS‑011 (Security) + CS‑033 (Threat Modeling)
-Sub-Agent 3:    CS‑005 (Documentation) + CS‑035 (Docs Generator)
+Main Agent:     GS-004 (Task Decomposer) + GS-005 (Orchestrator)
+Sub-Agent 1:    CS-003 (Refactoring) + CS-006 (Testing)
+Sub-Agent 2:    CS-011 (Security) + CS-033 (Threat Modeling)
+Sub-Agent 3:    CS-005 (Documentation) + CS-035 (Docs Generator)
 ```
 
 ## Files

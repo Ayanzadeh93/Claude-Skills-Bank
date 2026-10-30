@@ -41,7 +41,7 @@ Each platform has slightly different conventions for how skills should be format
 
 #### Claude Code Format
 ```markdown
-## Skill: CS‑003 – Refactoring Specialist
+## Skill: CS-003 – Refactoring Specialist
 Refactor code for readability and maintainability while preserving behavior.
 Always explain each refactoring decision and suggest tests for changed code.
 ```
@@ -49,7 +49,7 @@ Always explain each refactoring decision and suggest tests for changed code.
 #### Codex CLI Format
 ```markdown
 # Skill Definition
-name: CS‑003 – Refactoring Specialist
+name: CS-003 – Refactoring Specialist
 behavior: Refactor code for readability and maintainability while preserving behavior.
 rules:
   - Preserve all existing tests
@@ -59,7 +59,7 @@ rules:
 
 #### Gemini CLI Format
 ```markdown
-## Active Skill: CS‑003 – Refactoring Specialist
+## Active Skill: CS-003 – Refactoring Specialist
 When refactoring code, apply these principles:
 - Prioritize readability and maintainability
 - Preserve existing behavior (no functional changes)
@@ -69,14 +69,14 @@ When refactoring code, apply these principles:
 #### Aider Format
 ```yaml
 system-prompt: |
-  Active Skill CS‑003: You are a Refactoring Specialist.
+  Active Skill CS-003: You are a Refactoring Specialist.
   Refactor code for readability and maintainability while preserving behavior.
 ```
 
 #### Cline / Kimi Format
 ```markdown
 # Active Skills
-- CS‑003 (Refactoring Specialist): Refactor code for readability and maintainability while preserving behavior. Explain each decision.
+- CS-003 (Refactoring Specialist): Refactor code for readability and maintainability while preserving behavior. Explain each decision.
 ```
 
 ---
@@ -88,54 +88,54 @@ Best suited skills leverage Claude's deep reasoning and large context window:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **Deep Code Review** | CS‑009, CS‑011, CS‑010, GS‑020 | Claude excels at thorough, multi-aspect review |
-| **Research Workflows** | RS‑004, RS‑005, RS‑009, RS‑017 | Large context handles entire papers |
-| **Documentation** | CS‑005, CS‑035, CS‑028, WS‑029 | Strong writing quality |
+| **Deep Code Review** | CS-009, CS-011, CS-010, GS-020 | Claude excels at thorough, multi-aspect review |
+| **Research Workflows** | RS-004, RS-005, RS-009, RS-017 | Large context handles entire papers |
+| **Documentation** | CS-005, CS-035, CS-028, WS-029 | Strong writing quality |
 
 ### For Codex CLI Users
 Best suited skills leverage multi-agent orchestration and cloud sandboxing:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **Parallel Dev** | CS‑006, CS‑009, CS‑011 (parallel) | Run tests, review, and security in parallel agents |
-| **Full Lifecycle** | CS‑030, CS‑031, CS‑032 | CI/CD, Docker, IaC in sandbox |
-| **Rapid Prototyping** | CS‑047, CS‑016, CS‑017 | Quick scaffold with test execution |
+| **Parallel Dev** | CS-006, CS-009, CS-011 (parallel) | Run tests, review, and security in parallel agents |
+| **Full Lifecycle** | CS-030, CS-031, CS-032 | CI/CD, Docker, IaC in sandbox |
+| **Rapid Prototyping** | CS-047, CS-016, CS-017 | Quick scaffold with test execution |
 
 ### For Gemini CLI Users
 Best suited skills leverage MCP integration and reasoning modes:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **MCP-Enhanced** | CS‑036, DS‑012, OS‑026 | Connect to external tools via MCP |
-| **Deep Analysis** | DS‑004, DS‑013, DS‑014 | Gemini Deepthink for complex analysis |
-| **Multi-Format** | GS‑041, GS‑013, GS‑011 | Flexible output formatting |
+| **MCP-Enhanced** | CS-036, DS-012, OS-026 | Connect to external tools via MCP |
+| **Deep Analysis** | DS-004, DS-013, DS-014 | Gemini Deepthink for complex analysis |
+| **Multi-Format** | GS-041, GS-013, GS-011 | Flexible output formatting |
 
 ### For Kimi CLI Users
 Best suited skills leverage agent swarm and shell integration:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **Swarm Tasks** | CS‑049, GS‑004, GS‑005 | Decompose and parallelize with sub-agents |
-| **Shell Workflows** | CS‑026, CS‑030, CS‑031 | Direct shell integration |
-| **Large Codebases** | CS‑034, CS‑022, CS‑028 | Navigate and understand large repos |
+| **Swarm Tasks** | CS-049, GS-004, GS-005 | Decompose and parallelize with sub-agents |
+| **Shell Workflows** | CS-026, CS-030, CS-031 | Direct shell integration |
+| **Large Codebases** | CS-034, CS-022, CS-028 | Navigate and understand large repos |
 
 ### For Aider Users
 Best suited skills leverage Git-first workflow and model flexibility:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **Git-Native** | CS‑029, CS‑041, CS‑042 | Pairs perfectly with auto-commit |
-| **Iterative Dev** | GS‑036, CS‑003, CS‑006 | Build-test-fix loops with auto-commit |
-| **Code Quality** | CS‑021, CS‑043, CS‑024 | Enforce consistency across commits |
+| **Git-Native** | CS-029, CS-041, CS-042 | Pairs perfectly with auto-commit |
+| **Iterative Dev** | GS-036, CS-003, CS-006 | Build-test-fix loops with auto-commit |
+| **Code Quality** | CS-021, CS-043, CS-024 | Enforce consistency across commits |
 
 ### For Cline Users
 Best suited skills leverage VS Code integration and browser automation:
 
 | Skill Set | Skills | Why |
 |:----------|:-------|:----|
-| **Full-Stack** | CS‑015, CS‑017, CS‑018 | Frontend + API design in IDE |
-| **Visual Tasks** | PS‑009, PS‑010, PS‑044 | UI/UX with live preview |
-| **Documentation** | CS‑035, CS‑005, WS‑029 | Docs alongside code |
+| **Full-Stack** | CS-015, CS-017, CS-018 | Frontend + API design in IDE |
+| **Visual Tasks** | PS-009, PS-010, PS-044 | UI/UX with live preview |
+| **Documentation** | CS-035, CS-005, WS-029 | Docs alongside code |
 
 ---
 

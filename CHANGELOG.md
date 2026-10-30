@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.0.0] – 2026-05-02
+## [2.1.0] - 2026-10-30
+
+### Added
+- **`skills.json`** - machine-readable index of all 500 skills (id, name, description, category, file) for agents, editor extensions and catalog UIs
+- **`scripts/build-skills-json.mjs`** - generator and validator; `--check` fails on stale output
+- **`.github/workflows/validate-skills.yml`** - CI on every push/PR: unique IDs, correct prefix, contiguous `001-050` ranges, no drift between markdown and JSON
+- **README "Programmatic Access"** - schema sketch plus `jq` recipes
+- **`ROADMAP.md`**, animated **`assets/demo.svg`**, and README comparison table / 30-second start
+
+### Fixed
+- **Skill IDs used non-breaking hyphens** (`U+2011`) throughout the skills files, README and platform docs, so an ID copied from the docs was not the ID a user typed. All 1,000+ occurrences are now ASCII hyphens - IDs are greppable, copy-pasteable and parseable.
+
+---
+
+## [2.0.0] - 2026-05-02
 
 ### 🚀 Major Release: Multi-Platform Support
 
@@ -21,7 +35,7 @@ All notable changes to this project will be documented in this file.
 - **Repository structure** — Organized with clear directory hierarchy
 
 #### Fixed
-- DS‑027 capitalization ("explainer" → "Explainer")
+- DS-027 capitalization ("explainer" → "Explainer")
 
 ---
 

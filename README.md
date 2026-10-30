@@ -20,6 +20,7 @@
   <a href="#-supported-platforms">Platforms</a> •
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-usage-patterns">Usage</a> •
+  <a href="#-programmatic-access">JSON Index</a> •
   <a href="#-contributing">Contributing</a> •
   <a href="#-roadmap">Roadmap</a>
 </p>
@@ -30,7 +31,7 @@
 
 A curated library of **500 AI "skills"** — reusable roles, behaviors, and prompt templates you can plug into your workflows, products, and agents. Each skill is:
 
-- 🆔 **Identified** — Stable ID for routing and documentation (e.g., `CS‑012`)
+- 🆔 **Identified** — Stable ID for routing and documentation (e.g., `CS-012`)
 - 📛 **Named** — Human-readable name for quick recognition
 - 📝 **Described** — One-line actionable description
 
@@ -88,22 +89,22 @@ Browse the [categories below](#-categories) or the files in [`skills/`](skills/)
 
 **As a system prompt role:**
 ```
-You are CS‑003 – Refactoring Specialist.
+You are CS-003 – Refactoring Specialist.
 Refactor code for readability and maintainability while preserving behavior.
 ```
 
 **As an agent behavior:**
 ```
-Route coding tasks to CS‑001–CS‑050.
-Route data analysis tasks to DS‑001–DS‑050.
+Route coding tasks to CS-001–CS-050.
+Route data analysis tasks to DS-001–DS-050.
 ```
 
 **As a CLAUDE.md instruction:**
 ```markdown
 ## Active Skills
-- Use GS‑016 ("Think Step by Step" Enforcer) for all complex tasks
-- Use CS‑009 (Code Review Partner) for all PRs
-- Use GS‑020 (Risk & Edge‑Case Spotter) before merging
+- Use GS-016 ("Think Step by Step" Enforcer) for all complex tasks
+- Use CS-009 (Code Review Partner) for all PRs
+- Use GS-020 (Risk & Edge-Case Spotter) before merging
 ```
 
 ---
@@ -139,13 +140,13 @@ Copy skills into your project's `CLAUDE.md` or global `~/.claude/CLAUDE.md`:
 
 ## Active Skills
 When performing code review, activate:
-- CS‑009 – Code Review Partner
-- CS‑011 – Secure Coding Checker
-- GS‑020 – Risk & Edge‑Case Spotter
+- CS-009 – Code Review Partner
+- CS-011 – Secure Coding Checker
+- GS-020 – Risk & Edge-Case Spotter
 
 ## Behavioral Rules
-- Always use GS‑016 ("Think Step by Step" Enforcer)
-- For documentation tasks, use CS‑005 (Documentation‑First Coder)
+- Always use GS-016 ("Think Step by Step" Enforcer)
+- For documentation tasks, use CS-005 (Documentation-First Coder)
 ```
 
 **Key features:** 1M token context, hierarchical memory (`CLAUDE.md`), Git-native workflows.
@@ -162,7 +163,7 @@ When performing code review, activate:
 Place skill definitions in `~/.agents/skills/` or include in system prompts:
 
 ```markdown
-# Skill: CS‑003 – Refactoring Specialist
+# Skill: CS-003 – Refactoring Specialist
 ## Behavior
 Refactor code for readability and maintainability while preserving behavior.
 ## Rules
@@ -188,13 +189,13 @@ Add skills to your project's `GEMINI.md` context file:
 # Project Skills
 
 ## Code Quality Skills
-Apply CS‑009 (Code Review Partner) with these rules:
+Apply CS-009 (Code Review Partner) with these rules:
 - Flag complexity > 10
 - Require docstrings for public functions
-- Check for security patterns (CS‑011)
+- Check for security patterns (CS-011)
 
 ## Analysis Skills
-For data tasks, use DS‑004 (EDA Strategist) workflow.
+For data tasks, use DS-004 (EDA Strategist) workflow.
 ```
 
 **Key features:** MCP integration, Gemini 3 reasoning, multi-autonomy modes.
@@ -213,9 +214,9 @@ Use as custom instructions or system prompts:
 ```markdown
 # Active Skills Configuration
 ## Development Workflow
-- Planning: GS‑004 (Task Decomposer) + GS‑005 (Planning & Execution Orchestrator)
-- Coding: CS‑003 (Refactoring Specialist) + CS‑006 (Test Case Generator)
-- Review: CS‑009 (Code Review Partner)
+- Planning: GS-004 (Task Decomposer) + GS-005 (Planning & Execution Orchestrator)
+- Coding: CS-003 (Refactoring Specialist) + CS-006 (Test Case Generator)
+- Review: CS-009 (Code Review Partner)
 ```
 
 **Key features:** Agent swarm orchestration, ACP/MCP support, shell integration mode.
@@ -236,9 +237,9 @@ Reference skills in `.aider.conf.yml` or pass as system prompts:
 model: claude-sonnet-4-20250514
 system-prompt: |
   You are operating with the following active skills:
-  - CS‑003: Refactoring Specialist
-  - CS‑006: Test Case Generator  
-  - GS‑016: "Think Step by Step" Enforcer
+  - CS-003: Refactoring Specialist
+  - CS-006: Test Case Generator  
+  - GS-016: "Think Step by Step" Enforcer
   Always apply these behaviors to every code change.
 ```
 
@@ -259,13 +260,13 @@ Add skills as custom instructions in Cline's settings:
 # Custom Instructions — Active Skills
 
 ## Always Apply
-- GS‑016: Structure all solutions as numbered reasoning steps
-- CS‑009: Perform code review before submitting changes
-- GS‑020: List failure modes and edge cases for every change
+- GS-016: Structure all solutions as numbered reasoning steps
+- CS-009: Perform code review before submitting changes
+- GS-020: List failure modes and edge cases for every change
 
 ## On Request
-- CS‑006: Generate unit tests when asked
-- CS‑031: Help with Docker when containerization is needed
+- CS-006: Generate unit tests when asked
+- CS-031: Help with Docker when containerization is needed
 ```
 
 **Key features:** VS Code native, browser automation, MCP support, multi-model.
@@ -283,9 +284,9 @@ Add skills as custom instructions in Cline's settings:
 Route tasks to specialized skills based on content:
 
 ```
-IF task contains code → route to CS‑001–CS‑050
-IF task is about data → route to DS‑001–DS‑050
-IF task is writing → route to WS‑001–WS‑050
+IF task contains code → route to CS-001–CS-050
+IF task is about data → route to DS-001–DS-050
+IF task is writing → route to WS-001–WS-050
 ```
 
 ### Pattern 2: Skill Stacking
@@ -296,11 +297,11 @@ Combine multiple skills for complex workflows:
 Task: "Review this PR for production readiness"
 
 Stack:
-  1. CS‑009 – Code Review Partner (structure the review)
-  2. CS‑011 – Secure Coding Checker (security audit)
-  3. CS‑010 – Performance Profiler (bottleneck check)
-  4. CS‑006 – Test Case Generator (suggest missing tests)
-  5. GS‑020 – Risk & Edge‑Case Spotter (final risk check)
+  1. CS-009 – Code Review Partner (structure the review)
+  2. CS-011 – Secure Coding Checker (security audit)
+  3. CS-010 – Performance Profiler (bottleneck check)
+  4. CS-006 – Test Case Generator (suggest missing tests)
+  5. GS-020 – Risk & Edge-Case Spotter (final risk check)
 ```
 
 ### Pattern 3: Skill Chains
@@ -311,11 +312,11 @@ Create sequential pipelines:
 Task: "Write a blog post about our new API"
 
 Chain:
-  WS‑015 (Blog Post Planner)
-    → WS‑009 (Outline‑to‑Draft Expander)
-      → WS‑004 (Coherence & Flow Editor)
-        → WS‑005 (Clarity & Brevity Editor)
-          → WS‑016 (Blog Post SEO Assistant)
+  WS-015 (Blog Post Planner)
+    → WS-009 (Outline-to-Draft Expander)
+      → WS-004 (Coherence & Flow Editor)
+        → WS-005 (Clarity & Brevity Editor)
+          → WS-016 (Blog Post SEO Assistant)
 ```
 
 ### Pattern 4: Persona Activation
@@ -326,11 +327,56 @@ Set up persistent personas for sessions:
 # Session Persona: Senior Code Reviewer
 
 Active Skills:
-- GS‑006 (Constraint Enforcer) — enforce style guide
-- CS‑009 (Code Review Partner) — structured review
-- CS‑011 (Secure Coding Checker) — security focus
-- GS‑044 (Traceability Enforcer) — cite evidence for every comment
+- GS-006 (Constraint Enforcer) — enforce style guide
+- CS-009 (Code Review Partner) — structured review
+- CS-011 (Secure Coding Checker) — security focus
+- GS-044 (Traceability Enforcer) — cite evidence for every comment
 ```
+
+---
+
+## 🧩 Programmatic Access
+
+[`skills.json`](skills.json) is a machine-readable index of all 500 skills, for agents, editor extensions and catalog UIs.
+
+```json
+{
+  "schemaVersion": 1,
+  "total": 500,
+  "categories": [{ "name": "Coding & Code Review", "prefix": "CS", "file": "skills/skills-coding.md", "count": 50 }],
+  "skills": [
+    {
+      "id": "CS-009",
+      "name": "Code Review Partner",
+      "description": "Performs a human-style code review with comments and priority labels.",
+      "category": "Coding & Code Review",
+      "file": "skills/skills-coding.md"
+    }
+  ]
+}
+```
+
+Query it with [`jq`](https://jqlang.github.io/jq/):
+
+```bash
+# every coding skill
+jq -r '.skills[] | select(.category | test("Coding")) | "\(.id)\t\(.name)"' skills.json
+
+# one skill by ID
+jq '.skills[] | select(.id == "CS-009")' skills.json
+
+# all IDs, for agent routing tables
+jq -r '.skills[].id' skills.json | paste -sd ' '
+```
+
+Regenerate it after editing a skills file:
+
+```bash
+node scripts/build-skills-json.mjs          # rewrite skills.json
+node scripts/build-skills-json.mjs --check  # CI mode: fail if stale or invalid
+```
+
+CI runs the same check on every pull request: unique IDs, correct prefix, contiguous `001–050` ranges, and no hand-edited drift between the markdown and `skills.json`.
 
 ---
 
@@ -343,8 +389,15 @@ Active Skills:
 ├── 📄 CONTRIBUTING.md                    ← How to contribute
 ├── 📄 PLATFORMS.md                       ← Cross-platform comparison guide
 ├── 📄 CHANGELOG.md                       ← Version history
-├── 📂 assets/                            ← Repo assets (banner, images)
-│   └── 📄 banner.svg
+├── 📄 ROADMAP.md                         ← Where the project is going
+├── 📄 skills.json                        ← Machine-readable index of all 500 skills
+├── 📂 assets/                            ← Repo assets (banner, demo, images)
+│   ├── 📄 banner.svg
+│   └── 📄 demo.svg
+├── 📂 scripts/                           ← Tooling
+│   └── 📄 build-skills-json.mjs
+├── 📂 .github/workflows/                 ← CI
+│   └── 📄 validate-skills.yml
 ├── 📂 skills/                            ← 📚 Master skill definitions
 │   ├── 📄 skills-general-meta.md
 │   ├── 📄 skills-coding.md

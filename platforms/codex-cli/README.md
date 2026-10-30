@@ -31,9 +31,9 @@ Codex CLI supports a "Skills" system (introduced Dec 2025):
 ### Parallel Agent Configuration
 
 ```
-Agent 1 (Feature Dev):    CS‑047, CS‑003, CS‑005
-Agent 2 (Testing):        CS‑006, CS‑041, CS‑007
-Agent 3 (Security):       CS‑011, CS‑033, GS‑020
+Agent 1 (Feature Dev):    CS-047, CS-003, CS-005
+Agent 2 (Testing):        CS-006, CS-041, CS-007
+Agent 3 (Security):       CS-011, CS-033, GS-020
 ```
 
 ## Files
