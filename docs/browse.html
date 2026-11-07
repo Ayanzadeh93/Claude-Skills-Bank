@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse skills — AI Skills Bank</title>
+  <meta name="description" content="Search and filter the 500 AI Skills Bank entries in skills.json. Copy a skill in the format for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider, or Cline.">
+  <link rel="canonical" href="https://ayanzadeh93.github.io/Claude-Skills-Bank/browse.html">
+  <style>
+    :root{--bg:#050510;--surface:rgba(15,15,40,0.7);--border:rgba(255,255,255,0.08);--text:#e2e8f0;--muted:#8892b0;--accent:#6c63ff;--radius:12px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+    a{color:#a5b4fc}
+    header,main{max-width:960px;margin:0 auto;padding:24px 20px}
+    header{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+    h1{font-size:1.6rem;margin:0}
+    .controls{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px;margin:8px 0 12px}
+    label{display:flex;flex-direction:column;gap:6px;font-size:0.8rem;color:var(--muted)}
+    input,select,button{font:inherit;color:var(--text);background:#0c0c22;border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+    button{cursor:pointer;background:var(--accent);border:0;color:#fff}
+    button:focus,input:focus,select:focus{outline:2px solid #a5b4fc;outline-offset:1px}
+    .meta{color:var(--muted);font-size:0.92rem}
+    .note{color:var(--muted);font-size:0.88rem;margin:0 0 16px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:0 0 10px}
+    .card h2{font-size:1rem;margin:0 0 4px}
+    .id{font-family:ui-monospace,Consolas,monospace;color:#c4b5fd}
+    .desc{margin:6px 0 10px}
+    .row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .cat{color:var(--muted);font-size:0.85rem}
+    .empty,.error{padding:20px;border:1px dashed var(--border);border-radius:var(--radius)}
+    @media(max-width:720px){.controls{grid-template-columns:1fr}header{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Browse skills</h1>
+      <p class="meta">Search the <code>skills.json</code> index. Nothing here is typed by hand.</p>
+    </div>
+    <a href="index.html">Back to the site</a>
+  </header>
+  <main>
+    <div class="controls">
+      <label>Keyword
+        <input id="q" type="search" placeholder="id, name, or description" autocomplete="off">
+      </label>
+      <label>Category
+        <select id="category"><option value="">All categories</option></select>
+      </label>
+      <label>Copy format
+        <select id="platform"></select>
+      </label>
+    </div>
+    <p id="status" class="meta">Loading skills.json…</p>
+    <p class="note">Every skill in this index is written for all six platforms. The platform list does not drop skills. It only changes the copy block, using the loading format in <code>PLATFORMS.md</code>. The one-line description is copied as published. Extra example rules from that guide are not added.</p>
+    <div id="list"></div>
+  </main>
+  <script>
+    var PLATFORMS = [
+      { id: "claude", name: "Claude Code", file: "CLAUDE.md" },
+      { id: "codex", name: "Codex CLI", file: "~/.agents/skills/" },
+      { id: "gemini", name: "Gemini CLI", file: "GEMINI.md" },
+      { id: "kimi", name: "Kimi CLI", file: "system prompt" },
+      { id: "aider", name: "Aider", file: ".aider.conf.yml" },
+      { id: "cline", name: "Cline", file: "Custom Instructions" }
+    ];
+
+    function copyText(skill, platformId) {
+      var title = skill.id + " - " + skill.name;
+      var line = skill.description;
+      if (platformId === "codex") {
+        return "# Skill Definition\nname: " + title + "\nbehavior: " + line;
+      }
+      if (platformId === "gemini") {
+        return "## Active Skill: " + title + "\n" + line;
+      }
+      if (platformId === "aider") {
+        return "system-prompt: |\n  Active Skill " + skill.id + ": You are a " + skill.name + ".\n  " + line;
+      }
+      if (platformId === "kimi" || platformId === "cline") {
+        return "# Active Skills\n- " + skill.id + " (" + skill.name + "): " + line;
+      }
+      return "## Skill: " + title + "\n" + line;
+    }
+
+    function matches(skill, query, category) {
+      if (category && skill.category !== category) return false;
+      if (!query) return true;
+      var hay = (skill.id + " " + skill.name + " " + skill.description).toLowerCase();
+      return hay.indexOf(query) !== -1;
+    }
+
+    var catalog = null;
+
+    function render() {
+      var list = document.getElementById("list");
+      var status = document.getElementById("status");
+      if (!catalog) return;
+      var query = document.getElementById("q").value.trim().toLowerCase();
+      var category = document.getElementById("category").value;
+      var platformId = document.getElementById("platform").value;
+      var platform = PLATFORMS.filter(function (p) { return p.id === platformId; })[0];
+      var shown = catalog.skills.filter(function (skill) { return matches(skill, query, category); });
+      status.textContent = "Showing " + shown.length + " of " + catalog.skills.length + ". Copy format: " + platform.name + " (" + platform.file + ").";
+      list.innerHTML = "";
+      if (!shown.length) {
+        var empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "No skill matches that keyword and category.";
+        list.appendChild(empty);
+        return;
+      }
+      shown.forEach(function (skill) {
+        var card = document.createElement("article");
+        card.className = "card";
+        var row = document.createElement("div");
+        row.className = "row";
+        var h2 = document.createElement("h2");
+        var id = document.createElement("span");
+        id.className = "id";
+        id.textContent = skill.id;
+        h2.appendChild(id);
+        h2.appendChild(document.createTextNode(" " + skill.name));
+        var button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Copy skill";
+        button.addEventListener("click", function () {
+          var text = copyText(skill, platformId);
+          var done = function () { button.textContent = "Copied"; setTimeout(function () { button.textContent = "Copy skill"; }, 1600); };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+          } else {
+            fallbackCopy(text);
+            done();
+          }
+        });
+        row.appendChild(h2);
+        row.appendChild(button);
+        var desc = document.createElement("p");
+        desc.className = "desc";
+        desc.textContent = skill.description;
+        var cat = document.createElement("p");
+        cat.className = "cat";
+        cat.textContent = skill.category;
+        card.appendChild(row);
+        card.appendChild(desc);
+        card.appendChild(cat);
+        list.appendChild(card);
+      });
+    }
+
+    function fallbackCopy(text) {
+      var area = document.createElement("textarea");
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+    }
+
+    function fillFilters() {
+      var category = document.getElementById("category");
+      var names = catalog.categories.map(function (item) { return item.name; });
+      names.forEach(function (name) {
+        var option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        category.appendChild(option);
+      });
+      var platform = document.getElementById("platform");
+      PLATFORMS.forEach(function (item) {
+        var option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.name;
+        platform.appendChild(option);
+      });
+    }
+
+    async function loadCatalog() {
+      var urls = ["../skills.json", "https://raw.githubusercontent.com/Ayanzadeh93/Claude-Skills-Bank/main/skills.json"];
+      var lastError = null;
+      for (var i = 0; i < urls.length; i++) {
+        try {
+          var response = await fetch(urls[i]);
+          if (!response.ok) throw new Error(response.status + " " + urls[i]);
+          var data = await response.json();
+          if (!data || !Array.isArray(data.skills)) throw new Error("skills.json has no skills array");
+          return data;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+      throw lastError || new Error("skills.json was not found");
+    }
+
+    document.getElementById("q").addEventListener("input", render);
+    document.getElementById("category").addEventListener("change", render);
+    document.getElementById("platform").addEventListener("change", render);
+
+    loadCatalog().then(function (data) {
+      catalog = data;
+      fillFilters();
+      render();
+    }).catch(function (error) {
+      document.getElementById("status").textContent = "Could not load skills.json.";
+      var box = document.createElement("p");
+      box.className = "error";
+      box.textContent = String(error && error.message ? error.message : error);
+      document.getElementById("list").appendChild(box);
+    });
+  </script>
+</body>
+</html>
