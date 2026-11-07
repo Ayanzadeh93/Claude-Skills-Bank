@@ -34,6 +34,7 @@ A detailed comparison of how to use AI Skills Bank across different AI coding pl
 | **Kimi CLI** | Passed as system prompt content or configured via custom instructions |
 | **Aider** | Defined in `.aider.conf.yml` under `system-prompt` or passed via `--system-prompt` flag |
 | **Cline** | Configured as "Custom Instructions" in Cline's VS Code settings panel |
+| **Cursor** | Copied into `.cursor/rules/` as `.mdc` project rules. `alwaysApply` loads every chat; the rest load when the description matches |
 
 ### Skill Format Differences
 
@@ -77,6 +78,15 @@ system-prompt: |
 ```markdown
 # Active Skills
 - CS-003 (Refactoring Specialist): Refactor code for readability and maintainability while preserving behavior. Explain each decision.
+```
+
+#### Cursor Format
+```markdown
+---
+description: CS-009 Code Review Partner. Use when reviewing a diff.
+alwaysApply: false
+---
+CS-009 – Code Review Partner. Performs a human-style code review with comments and priority labels.
 ```
 
 ---
@@ -137,6 +147,15 @@ Best suited skills leverage VS Code integration and browser automation:
 | **Visual Tasks** | PS-009, PS-010, PS-044 | UI/UX with live preview |
 | **Documentation** | CS-035, CS-005, WS-029 | Docs alongside code |
 
+### For Cursor Users
+Best suited skills are the ones that fit a single project rule. The starter pack in `platforms/cursor/rules/` ships these five:
+
+| Skill Set | Skills | Why |
+|:----------|:-------|:----|
+| **Always on** | GS-016 | Numbered steps before the answer, on every chat |
+| **Review** | CS-009, CS-011, GS-020 | Labeled review, a security pass, and edge cases before the edit |
+| **Data** | DS-004 | An analysis plan before the model |
+
 ---
 
 ## Migration Between Platforms
@@ -150,6 +169,7 @@ If you're switching between platforms, here's a quick mapping:
 | Codex CLI → Claude Code | Merge skill files into single `CLAUDE.md` |
 | Aider → Claude Code | Move `system-prompt` from YAML to `CLAUDE.md` |
 | Any → Cline | Copy skill descriptions to Custom Instructions panel |
+| Any → Cursor | Copy a skill into `.cursor/rules/` as an `.mdc` file |
 
 ---
 

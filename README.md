@@ -11,7 +11,7 @@
 <p align="center">
   <a href="#-quick-start"><img src="https://img.shields.io/badge/Skills-500-blueviolet?style=for-the-badge" alt="500 Skills"/></a>
   <a href="#-categories"><img src="https://img.shields.io/badge/Categories-10-blue?style=for-the-badge" alt="10 Categories"/></a>
-  <a href="#-supported-platforms"><img src="https://img.shields.io/badge/Platforms-6-green?style=for-the-badge" alt="6 Platforms"/></a>
+  <a href="#-supported-platforms"><img src="https://img.shields.io/badge/Platforms-7-green?style=for-the-badge" alt="7 Platforms"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"/></a>
   <a href="skills.json"><img src="https://img.shields.io/badge/Index-skills.json-informational?style=for-the-badge" alt="Machine-readable skills.json index"/></a>
   <a href="https://github.com/Ayanzadeh93/Claude-Skills-Bank/actions/workflows/validate-skills.yml"><img src="https://img.shields.io/github/actions/workflow/status/Ayanzadeh93/Claude-Skills-Bank/validate-skills.yml?style=for-the-badge&label=skills%20validated" alt="Validate skills"/></a>
@@ -86,6 +86,7 @@ Browse the [categories below](#-categories) or the files in [`skills/`](skills/)
 | 🌙 **Kimi CLI** | Custom instructions | [`platforms/kimi-cli/`](platforms/kimi-cli/) |
 | 🟡 **Aider** | `.aider.conf.yml` | [`platforms/aider/`](platforms/aider/) |
 | 🔶 **Cline** | Custom instructions | [`platforms/cline/`](platforms/cline/) |
+| 🟦 **Cursor** | `.cursor/rules` | [`platforms/cursor/`](platforms/cursor/) |
 
 ### 3. Use It
 
@@ -277,6 +278,25 @@ Add skills as custom instructions in Cline's settings:
 
 </details>
 
+<details>
+<summary><strong>🟦 Cursor</strong> — AI code editor with project rules</summary>
+
+### Setup
+
+Copy the starter rules into the project:
+
+```text
+platforms/cursor/rules/  →  .cursor/rules/
+```
+
+The pack adapts five flagship skills: GS-016, GS-020, CS-009, CS-011, and DS-004. GS-016 is set to always apply. The others apply when the chat matches their description.
+
+**Key features:** Project rules (`.mdc`), editor-native, per-skill files you can turn off one at a time.
+
+📁 **Ready-to-use configs → [`platforms/cursor/`](platforms/cursor/)**
+
+</details>
+
 ---
 
 ## 🎯 Usage Patterns
@@ -417,7 +437,8 @@ CI runs the same check on every pull request: unique IDs, correct prefix, contig
     ├── 📂 gemini-cli/
     ├── 📂 kimi-cli/
     ├── 📂 aider/
-    └── 📂 cline/
+    ├── 📂 cline/
+    └── 📂 cursor/
 ```
 
 ---
