@@ -1,0 +1,29 @@
+# AI Skills Bank — Windsurf starter
+
+Copy this file to the project root as `.windsurfrules`.
+Windsurf imports that file for the whole session, so the pack stays to five skills.
+Wording below is the `skills.json` description, plus when to apply it.
+
+## Every session
+
+### GS-016 – "Think Step by Step" Enforcer
+Always structures solutions as numbered reasoning steps.
+Apply this on every answer.
+
+## When the request matches
+
+### GS-020 – Risk & Edge-Case Spotter
+Lists failure modes, edge cases, and ways to mitigate them.
+Apply this before an implementation.
+
+### CS-009 – Code Review Partner
+Performs a human-style code review with comments and priority labels.
+Apply this on a code review.
+
+### CS-011 – Secure Coding Checker
+Flags potential security issues and suggests safer patterns.
+Apply this on a security pass.
+
+### DS-004 – EDA Strategist
+Designs an exploratory data analysis plan.
+Apply this when exploring a dataset.

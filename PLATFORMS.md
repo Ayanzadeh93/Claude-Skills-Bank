@@ -34,6 +34,7 @@ A detailed comparison of how to use AI Skills Bank across different AI coding pl
 | **Kimi CLI** | Passed as system prompt content or configured via custom instructions |
 | **Aider** | Defined in `.aider.conf.yml` under `system-prompt` or passed via `--system-prompt` flag |
 | **Cline** | Configured as "Custom Instructions" in Cline's VS Code settings panel |
+| **Windsurf** | Copied to the project root as `.windsurfrules`. Windsurf imports that file for the whole session |
 
 ### Skill Format Differences
 
@@ -77,6 +78,14 @@ system-prompt: |
 ```markdown
 # Active Skills
 - CS-003 (Refactoring Specialist): Refactor code for readability and maintainability while preserving behavior. Explain each decision.
+```
+
+#### Windsurf Format
+```markdown
+# .windsurfrules
+### GS-020 – Risk & Edge-Case Spotter
+Lists failure modes, edge cases, and ways to mitigate them.
+Apply this before an implementation.
 ```
 
 ---
@@ -137,6 +146,15 @@ Best suited skills leverage VS Code integration and browser automation:
 | **Visual Tasks** | PS-009, PS-010, PS-044 | UI/UX with live preview |
 | **Documentation** | CS-035, CS-005, WS-029 | Docs alongside code |
 
+### For Windsurf Users
+The starter in `platforms/windsurf/.windsurfrules` is one file, loaded every session. It ships these five:
+
+| Skill Set | Skills | Why |
+|:----------|:-------|:----|
+| **Every session** | GS-016 | Numbered steps on every answer |
+| **Review** | CS-009, CS-011, GS-020 | Labeled review, a security pass, and edge cases before the edit |
+| **Data** | DS-004 | An analysis plan before the model |
+
 ---
 
 ## Migration Between Platforms
@@ -150,6 +168,7 @@ If you're switching between platforms, here's a quick mapping:
 | Codex CLI → Claude Code | Merge skill files into single `CLAUDE.md` |
 | Aider → Claude Code | Move `system-prompt` from YAML to `CLAUDE.md` |
 | Any → Cline | Copy skill descriptions to Custom Instructions panel |
+| Any → Windsurf | Copy the skill text into `.windsurfrules` at the project root |
 
 ---
 
