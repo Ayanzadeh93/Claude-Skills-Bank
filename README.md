@@ -5,6 +5,10 @@
 <h1 align="center">🧠 AI Skills Bank</h1>
 
 <p align="center">
+  English · <a href="README.fa.md">فارسی</a>
+</p>
+
+<p align="center">
   <strong>500 reusable AI skills — ready for Claude Code, Codex CLI, Gemini CLI, Kimi CLI, Aider & more</strong>
 </p>
 
@@ -387,6 +391,7 @@ CI runs the same check on every pull request: unique IDs, correct prefix, contig
 ```
 📦 AI-Skills-Bank
 ├── 📄 README.md                          ← You are here
+├── 📄 README.fa.md                       ← Persian translation
 ├── 📄 LICENSE                            ← MIT License
 ├── 📄 CONTRIBUTING.md                    ← How to contribute
 ├── 📄 PLATFORMS.md                       ← Cross-platform comparison guide
@@ -456,6 +461,13 @@ This project is licensed under the [MIT License](LICENSE).
 [![Star History Chart](https://api.star-history.com/svg?repos=Ayanzadeh93/Claude-Skills-Bank&type=Date)](https://star-history.com/#Ayanzadeh93/Claude-Skills-Bank&Date)
 
 If this project helps you build better AI workflows, consider giving it a ⭐ — it helps others find the collection.
+
+---
+
+## 🌐 Translations
+
+- [English](README.md)
+- [فارسی (Persian)](README.fa.md)
 
 ---
 
